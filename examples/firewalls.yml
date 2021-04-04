@@ -1,0 +1,55 @@
+---
+
+firewalls:
+  - name: "fw-dc-dallas"
+    local_interfaces:
+      - name: eth0
+        nets:
+          - 203.0.113.1/31
+      - name: eth1
+        nets:
+          - 203.0.113.3/31
+      - name: dummy0
+        nets:
+          - 203.0.113.4/32
+    forwarding_interfaces:
+      - name: bond0.200
+        nets:
+          - 198.51.100.0/25
+      - name: bond0.201
+        nets:
+          - 203.0.113.128/25
+    type: forward
+    target: nftables
+  - name: "fw-dc-austin"
+    local_interfaces:
+      - name: eth0
+        nets:
+          - 203.0.113.7/31
+    forwarding_interfaces:
+      - name: eth1
+        nets:
+          - 198.51.100.128/25
+    type: forward
+    target: iptables
+  - name: "fw-hq-newyork"
+    local_interfaces:
+      - name: bond0
+        nets:
+          - 203.0.113.9/31
+    forwarding_interfaces:
+      - name: bond0.100
+        nets:
+          - 192.0.2.0/25
+          - 192.0.2.128/25
+    type: forward
+    target: iptables
+  - name: "public-srv01.mycorp.example"
+    local_interfaces:
+      - name: bond0
+        nets:
+          - 203.0.113.66/32
+    type: local
+    target: nftables
+    
+    

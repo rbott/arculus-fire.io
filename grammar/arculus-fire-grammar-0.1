@@ -1,0 +1,42 @@
+rules: (rule)*
+rule: ALLOW FROM _source_hosts TO _target_hosts DEST_PORTS _destports _with_options? SEMICOLON
+
+_source_hosts: [ source_host ("," source_host)* ]
+source_host: HOST_DEFINITION
+
+_target_hosts: [ target_host ("," target_host)* ]
+target_host: HOST_DEFINITION
+
+_destports: [ destport ("," destport)* ]
+destport: (PORT|PORTRANGE)
+
+_with_options: WITH [ (_with_protocols|_with_specificnodes) (_with_protocols|_with_specificnodes)* ]
+
+_with_specificnodes: RESTRICT_TO _specificnodes
+_specificnodes: [ specificnode ("," specificnode)* ]
+specificnode: HOST_DEFINITION
+
+_with_protocols: PROTOCOLS _protocols
+_protocols: [ protocol ("," protocol)* ]
+protocol: WORD
+
+ALLOW: "allow access"
+FROM: "from"
+TO: "to"
+DEST_PORTS: "on destination ports"
+WITH: "with"
+PROTOCOLS: "protocols"
+RESTRICT_TO: "restrict-to"
+SEMICOLON: ";"
+PORT: INT
+PORTRANGE_SEPARATOR: ":"
+PORTRANGE: INT PORTRANGE_SEPARATOR INT
+
+HOST_DEFINITION: ("-"|"_"|LETTER|DIGIT)+
+
+%import common.WORD
+%import common.LETTER
+%import common.DIGIT
+%import common.INT
+%import common.WS
+%ignore WS

@@ -1,0 +1,58 @@
+---
+
+net-objects:
+  - name: ANYONE
+    nets:
+      - 0.0.0.0/0
+  - name: mycorp-networks
+    nets:
+      - 192.0.2.0/24
+      - 198.51.100.0/24
+      - 203.0.113.0/24
+  - name: mycorp-vpn
+    nets:
+      - 192.0.2.0/25
+  - name: mycorp-workstations
+    include: mycorp-vpn
+    nets:
+      - 192.0.2.128/25
+  - name: mycorp-server-net
+    nets:
+      - 198.51.100.0/25
+  - name: mycorp-infra-net
+      - 198.51.100.128/25
+  - name: mycorp-backend-net
+    nets:
+      - 203.0.113.128/25
+  - name: mycorp-public-net
+    nets:
+      - 203.0.113.64/27
+  - name: ci-server
+    nets:
+      - 198.51.100.129/32
+  - name: mycorp-web-loadbalancer
+    nets:
+      - 198.51.100.5/32
+      - 198.51.100.6/32
+      - 198.51.100.7/32
+      - 198.51.100.8/32
+  - name: mycorp-api-loadbalancer
+    nets:
+      - 198.51.100.10/32
+  - name: mycorp-nameservers
+    nets:
+      - 198.51.100.3/32
+      - 198.51.100.254/32
+  - name: mycorp-storage-nodes
+    nets:
+      - 198.51.100.140/32
+      - 198.51.100.141/32
+      - 198.51.100.142/32
+      - 198.51.100.143/32
+      - 198.51.100.144/32
+      - 198.51.100.145/32
+      - 198.51.100.146/32
+  - name: mycorp-monitoring-hosts
+    nets:
+      - 198.51.100.180/32
+      - 198.51.100.181/32

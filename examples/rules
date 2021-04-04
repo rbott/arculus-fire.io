@@ -1,0 +1,11 @@
+allow access from mycorp-workstations to mycorp-networks on destination ports 22 with protocols tcp;
+allow access from mycorp-workstations to ANYONE on destination ports 22 with protocols tcp;
+allow access from mycorp-workstations to ci-server on destination ports 80,443 with protocols tcp;
+allow access from ANYONE to mycorp-web-loadbalancer on destination ports 80,443 with protocols tcp;
+allow access from ANYONE to mycorp-nameservers on destination ports 53 with protocols udp;
+allow access from ANYONE to mycorp-api-loadbalancer on destination ports 80,443 with protocols tcp restrict-to fw-dc-dallas;
+allow access from mycorp-workstations to mycorp-web-loadbalancer on destination ports 8443 with protocols tcp restrict-to fw-dc-dallas;
+allow access from mycorp-server-net to mycorp-storage-nodes on destination ports 3120 with protocols tcp;
+allow access from mycorp-workstations to ANYONE on destination ports 1:1024 with protocols tcp;
+allow access from mycorp-monitoring-hosts to mycorp-networks on destination ports 161 with protocols udp;
+allow access from ANYONE to mycorp-public-net on destination ports 80,443 with protocols tcp;
