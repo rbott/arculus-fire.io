@@ -214,12 +214,12 @@ def get_forwarding_rules(firewall, rules):
 # also populate "direction" to indicate traffic flow (in/out)
 # also strips all non-relevant ips/networks from the rule (e.g. not local to the current firewall)
 def prepare_firewall(firewall, rules):
-    logger.debug("Finding all rules affecting {}".format(firewall["name"]))
+    logger.info("Finding all rules affecting {}".format(firewall["name"]))
 
     rules_forwarding = get_forwarding_rules(firewall, rules)
     rules_local = get_local_rules(firewall, rules)
 
-    logger.debug("{}: Found {} local and {} forwarding rule(s) affecting this firewall".format( firewall["name"], len(rules_local), len(rules_forwarding)))
+    logger.info("{}: Found {} local and {} forwarding rule(s) affecting this firewall".format( firewall["name"], len(rules_local), len(rules_forwarding)))
     return rules_local, rules_forwarding
 
 
@@ -268,14 +268,12 @@ def parse_rules():
     return rules_transformed
 
 if __name__ == "__main__":
-    # set logging parameters
     logger = logging.getLogger("root")
-    FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
-    logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 
     timer_start = perf_counter()
 
     config = utils.config.read_config()
+    utils.config.set_loglevel(config)
 
     # read definitions/configuration
     definitions = utils.yaml.read(config["general"]["net_definitions"])
