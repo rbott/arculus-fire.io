@@ -3,27 +3,27 @@
 import logging
 from time import perf_counter
 
-from generators.dumb_iptables_generator import DumbIptablesGenerator
-from generators.dumb_nftables_generator import DumbNftablesGenerator
+from arculusfireio.generators.dumb_iptables_generator import DumbIptablesGenerator
+from arculusfireio.generators.dumb_nftables_generator import DumbNftablesGenerator
 
-import utils.config
-import utils.yaml
+import arculusfireio.utils.config
+import arculusfireio.utils.yaml
 
 if __name__ == "__main__":
     logger = logging.getLogger("root")
 
     timer_start = perf_counter()
 
-    config = utils.config.read_config()
-    utils.config.set_loglevel(config)
+    config = arculusfireio.utils.config.read_config()
+    arculusfireio.utils.config.set_loglevel(config)
 
-    definitions = utils.yaml.read(config["general"]["net_definitions"])
-    firewalls = utils.yaml.read(config["general"]["firewall_definitions"])
+    definitions = arculusfireio.utils.yaml.read(config["general"]["net_definitions"])
+    firewalls = arculusfireio.utils.yaml.read(config["general"]["firewall_definitions"])
     local_networks = [ d for d in definitions["net-objects"] if d["name"] == "mycorp-networks" ][0]["nets"]
 
     for firewall in firewalls["firewalls"]:
         fw_name = firewall["name"]
-        rules = utils.yaml.read("{}/rules/{}.yml".format(config["general"]["workdir"],fw_name))
+        rules = arculusfireio.utils.yaml.read("{}/rules/{}.yml".format(config["general"]["workdir"],fw_name))
         if rules["firewall"]["target"] == "iptables":
             firewall_generator = DumbIptablesGenerator(fw_name, rules, local_networks, config["general"]["workdir"])
         elif rules["firewall"]["target"] == "nftables":

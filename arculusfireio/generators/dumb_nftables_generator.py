@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from generators.firewall_generator import FirewallGenerator
+from arculusfireio.generators.firewall_generator import FirewallGenerator
 
 # This implements a simple nftables output generator.
 # It can be imported through `nft -f $file` or syntax-checked
