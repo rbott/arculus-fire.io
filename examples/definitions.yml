@@ -4,11 +4,15 @@ net-objects:
   - name: ANYONE
     nets:
       - 0.0.0.0/0
+      - ::/0
   - name: mycorp-networks
     nets:
       - 192.0.2.0/24
       - 198.51.100.0/24
       - 203.0.113.0/24
+      - 2001:db8:1::/48
+      - 2001:db8:2::/48
+      - 2001:db8:3::/48
   - name: mycorp-vpn
     nets:
       - 192.0.2.0/25
@@ -16,33 +20,46 @@ net-objects:
     include: mycorp-vpn
     nets:
       - 192.0.2.128/25
+      - 2001:db8:1:1::/64
   - name: mycorp-server-net
     nets:
       - 198.51.100.0/25
+      - 2001:db8:1:2::/64
   - name: mycorp-infra-net
       - 198.51.100.128/25
+      - 2001:db8:2:1::/64
   - name: mycorp-backend-net
     nets:
       - 203.0.113.128/25
+      - 2001:db8:3:1::/64
   - name: mycorp-public-net
     nets:
       - 203.0.113.64/27
+      - 2001:db8:3:2::/64
   - name: ci-server
     nets:
       - 198.51.100.129/32
+      - 2001:db8:2:1::25/128
   - name: mycorp-web-loadbalancer
     nets:
       - 198.51.100.5/32
       - 198.51.100.6/32
       - 198.51.100.7/32
       - 198.51.100.8/32
+      - 2001:db8:1:2::5/128
+      - 2001:db8:1:2::6/128
+      - 2001:db8:1:2::7/128
+      - 2001:db8:1:2::8/128
   - name: mycorp-api-loadbalancer
     nets:
       - 198.51.100.10/32
+      - 2001:db8:1:2::10/64
   - name: mycorp-nameservers
     nets:
       - 198.51.100.3/32
       - 198.51.100.254/32
+      - 2001:db8:1:2::53/128
+      - 2001:db8:2:1::53/128
   - name: mycorp-storage-nodes
     nets:
       - 198.51.100.140/32

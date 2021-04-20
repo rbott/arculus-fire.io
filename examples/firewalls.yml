@@ -16,9 +16,11 @@ firewalls:
       - name: bond0.200
         nets:
           - 198.51.100.0/25
+          - 2001:db8:1:2::/64
       - name: bond0.201
         nets:
           - 203.0.113.128/25
+          - 2001:db8:3:1::/64
     type: forward
     target: nftables
   - name: "fw-dc-austin"
@@ -42,6 +44,7 @@ firewalls:
         nets:
           - 192.0.2.0/25
           - 192.0.2.128/25
+          - 2001:db8:1:1::/64
     type: forward
     target: iptables
   - name: "public-srv01.mycorp.example"
